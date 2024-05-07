@@ -49,10 +49,10 @@ async def chat(websocket, sessions={}):
         async for message in websocket:
             for socket in sessions.values():
                 await socket.send(message)
-                print(f"Sent message to {socket.remote_address}: {message}")
+                print(f"Sent message to {socket.remote_address}: {message}") # informa que a mensagem foi enviada para o cliente
     finally:
         del sessions[remote]
-        print(f"Session closed: {remote}")
+        print(f"Session closed: {remote}") # informa que a sessão foi fechada
 
 
 async def web_socket_router(websocket, path):
@@ -62,7 +62,7 @@ async def web_socket_router(websocket, path):
     elif path == '/echo':
         await echo(websocket)
     elif path == '/chat':
-        print(f"Chat session started: {websocket.remote_address}")
+        print(f"Chat session started: {websocket.remote_address}") # informa que a sessão de chat foi iniciada
         await chat(websocket)
     else:
         await websocket.close(reason=f'path not found: {path}')
